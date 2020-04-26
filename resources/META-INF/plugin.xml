@@ -1,0 +1,55 @@
+<idea-plugin>
+    <id>ir.ac.um.melogger</id>
+    <name>ME Logger</name>
+    <version>1.0</version>
+    <vendor email="samadpayadr@gmail.com" url="https://sites.google.com/view/samadpaydar">Samad Paydar's
+        Homepage
+    </vendor>
+
+    <description><![CDATA[
+      This is a plugin for Android Studio to instrument the source code of an Android apps
+    ]]></description>
+
+    <change-notes><![CDATA[
+    There is no change-notes currently.
+    There is no change-notes currently.
+    There is no change-notes currently.
+    There is no change-notes currently.
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="141.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <toolWindow id="ME Logger"
+                    anchor="bottom"
+                    icon="/images/icon.png"
+                    factoryClass="ir.ac.um.melogger.ui.MELoggerToolWindowFactory"></toolWindow>
+    </extensions>
+
+    <actions>
+        <action id="ir.ac.um.melogger.ui.UnInstrumentAction" class="ir.ac.um.melogger.ui.UnInstrumentAction"
+                text="UnInstrument"
+                description="Uninstruments the application to trace method executions">
+            <add-to-group group-id="AnalyzeMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift U"/>
+        </action>
+        <action id="ir.ac.um.melogger.ui.InstrumentAction" class="ir.ac.um.melogger.ui.InstrumentAction"
+                text="Instrument"
+                description="Instruments the application to trace method executions">
+            <add-to-group group-id="AnalyzeMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift I"/>
+        </action>
+    </actions>
+
+</idea-plugin>
