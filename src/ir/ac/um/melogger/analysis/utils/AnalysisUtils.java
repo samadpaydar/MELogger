@@ -56,9 +56,9 @@ public class AnalysisUtils {
             String methodSemiQualifiedName = getMethodSemiQualifiedName(method);
             String className = method.getContainingClass().getQualifiedName();
             if (className == null) {
-                return "AnonymousClass_" + methodSemiQualifiedName;
+                return "AnonymousClass(" + methodSemiQualifiedName;
             }
-            result = className + Constants.DOT_CHAR + methodSemiQualifiedName;
+            result = className + Constants.COMMA_CHAR + methodSemiQualifiedName;
         } catch (Exception e) {
             Utils.showException(e);
             e.printStackTrace();
