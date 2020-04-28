@@ -82,7 +82,7 @@ public class Instrumenter implements Runnable {
             if (!created) {
                 Utils.showMessage("Filed to create path " + loggerFileDirectory.getAbsolutePath());
             } else {
-                exists = created;
+                exists = true;
             }
         }
         if (exists) {
@@ -99,7 +99,6 @@ public class Instrumenter implements Runnable {
         Utils.showMessage("Injecting invocations...");
         psiElement.accept(new InvocationInjector(this));
     }
-
 
     public Project getProject() {
         return project;
