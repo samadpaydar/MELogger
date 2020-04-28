@@ -86,7 +86,7 @@ public class Instrumenter implements Runnable {
             }
         }
         if (exists) {
-            try (PrintStream javaFile = new PrintStream(new File(loggerFileDirectory, AnalysisUtils.LOGGER_CLASS))) {
+            try (PrintStream javaFile = new PrintStream(new File(loggerFileDirectory, AnalysisUtils.LOGGER_CLASS), "UTF-8")) {
                 javaFile.println(AnalysisUtils.LOGGER_SOURCE_CODE.
                         replace("[application_class]", applicationClassQualifiedName));
             } catch (IOException e) {
