@@ -27,14 +27,9 @@ public class UnInstrumentAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-        if (anActionEvent != null) {
-            Navigatable navigatable = anActionEvent.getData(CommonDataKeys.NAVIGATABLE);
-            if (navigatable != null) {
-                Project project = anActionEvent.getProject();
-                PsiElement psiElement = anActionEvent.getData(LangDataKeys.PSI_ELEMENT);
-                processProject(project, psiElement);
-            }
-        }
+        Project project = anActionEvent.getProject();
+        PsiElement psiElement = anActionEvent.getData(LangDataKeys.PSI_ELEMENT);
+        processProject(project, psiElement);
     }
 
     private void processProject(Project project, PsiElement psiElement) {
@@ -61,7 +56,7 @@ public class UnInstrumentAction extends AnAction {
         PsiElement psiElement = anActionEvent.getData(LangDataKeys.PSI_ELEMENT);
         boolean enabled = project != null && (psiElement instanceof PsiJavaDirectoryImpl)
                 && ((PsiDirectory) psiElement).getVirtualFile().getCanonicalPath().equals(
-                        project.getBasePath());
+                project.getBasePath());
         anActionEvent.getPresentation().setEnabledAndVisible(enabled);
     }
 

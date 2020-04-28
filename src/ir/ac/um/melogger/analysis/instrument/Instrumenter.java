@@ -11,6 +11,7 @@ import ir.ac.um.melogger.utils.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.charset.Charset;
 import java.util.List;
 
 
@@ -20,7 +21,6 @@ import java.util.List;
 public class Instrumenter implements Runnable {
     private Project project;
     private PsiElement psiElement;
-    private List<PsiClass> projectJavaClasses;
     private File sourceDirectory;
 
     public Instrumenter(Project project, PsiElement psiElement) {

@@ -17,40 +17,37 @@ public class AnalysisUtils {
     public static final String CONTEXT_GETTER_METHOD_NAME = "getAppContextForMELogger";
 
     public static final String CONTEXT_GETTER_METHOD_BODY =
-            "public static Context " + AnalysisUtils.CONTEXT_GETTER_METHOD_NAME + "() {\n" +
-                    "\t\treturn getApplicationContext();\n" +
-                    "    }\n";
-    public static final String LOGGER_SOURCE_CODE = String.format("package %s;\n" +
-                    "import android.content.Context;\n" +
-                    "import android.os.Environment;\n" +
-                    "import java.io.File;\n" +
-                    "import java.io.FileOutputStream;\n" +
-                    "import java.io.PrintStream;\n" +
+            "public static Context " + AnalysisUtils.CONTEXT_GETTER_METHOD_NAME + "() {" +
+                    "\t\treturn getApplicationContext();" +
+                    "    }";
+    public static final String LOGGER_SOURCE_CODE = String.format("package %s;" +
+                    "import android.content.Context;" +
+                    "import android.os.Environment;" +
+                    "import java.io.File;" +
+                    "import java.io.FileOutputStream;" +
+                    "import java.io.PrintStream;" +
                     "import %s.%s;" +
-                    "\n" +
-                    "public class %s {\n" +
-                    "    private static PrintStream logFile;\n" +
-                    "\n" +
-                    "    public static synchronized void log(String msg) {\n" +
-                    "        try {\n" +
-                    "            if (logFile == null) {\n" +
-                    "                Context context = [application_class].%s();\n" +
-                    "                File directory = context.getExternalCacheDir();\n" +
-                    "                File file = new File (directory, \"ApplicationLog.log\");\n" +
-                    "                if(file.exists()) {\n" +
-                    "                    file.delete();\n" +
-                    "                }\n" +
-                    "                file.createNewFile();\n" +
-                    "                logFile = new PrintStream(new FileOutputStream(file), true);\n" +
-                    "            }\n" +
-                    "            logFile.append(msg + \"\\n\");\n" +
-                    "            logFile.flush();\n" +
-                    "        } catch (Exception e) {\n" +
-                    "            e.printStackTrace();\n" +
-                    "        }\n" +
-                    "    }\n" +
-                    "\n" +
-                    "}\n", AnalysisUtils.LOGGER_PACKAGE, AnalysisUtils.LOGGER_PACKAGE,
+                    "public class %s {" +
+                    "    private static PrintStream logFile;" +
+                    "    public static synchronized void log(String msg) {" +
+                    "        try {" +
+                    "            if (logFile == null) {" +
+                    "                Context context = [application_class].%s();" +
+                    "                File directory = context.getExternalCacheDir();" +
+                    "                File file = new File (directory, \"ApplicationLog.log\");" +
+                    "                if(file.exists()) {" +
+                    "                    file.delete();" +
+                    "                }" +
+                    "                file.createNewFile();" +
+                    "                logFile = new PrintStream(new FileOutputStream(file), true);" +
+                    "            }" +
+                    "            logFile.append(msg + \"\\n\");" +
+                    "            logFile.flush();" +
+                    "        } catch (Exception e) {" +
+                    "            e.printStackTrace();" +
+                    "        }" +
+                    "    }" +
+                    "}", AnalysisUtils.LOGGER_PACKAGE, AnalysisUtils.LOGGER_PACKAGE,
             AnalysisUtils.LOGGER_CLASS, AnalysisUtils.LOGGER_CLASS, AnalysisUtils.CONTEXT_GETTER_METHOD_NAME);
 
     public static String getMethodQualifiedName(PsiMethod method) {

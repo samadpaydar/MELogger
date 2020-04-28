@@ -17,22 +17,25 @@ public class FileAnalyzer {
         File[] innerFiles = directory.listFiles();
         File sourceDirectory = null;
         //use a breadth-first search
-        for (File innerFile : innerFiles) {
-            if (innerFile.isDirectory()) {
-                if (innerFile.getName().equals("src")) {
-                    sourceDirectory = innerFile;
-                    break;
-                }
-            }
-        }
-        if (sourceDirectory == null) {
-            //now depth-first search
+        if (innerFiles != null) {
             for (File innerFile : innerFiles) {
                 if (innerFile.isDirectory()) {
-                    File result = findSourceDirectory(innerFile);
-                    if (result != null) {
-                        sourceDirectory = result;
+                    if (innerFile.getName().equals("src")) {
+                        sourceDirectory = innerFile;
                         break;
+                    }
+                }
+            }
+
+            if (sourceDirectory == null) {
+                //now depth-first search
+                for (File innerFile : innerFiles) {
+                    if (innerFile.isDirectory()) {
+                        File result = findSourceDirectory(innerFile);
+                        if (result != null) {
+                            sourceDirectory = result;
+                            break;
+                        }
                     }
                 }
             }

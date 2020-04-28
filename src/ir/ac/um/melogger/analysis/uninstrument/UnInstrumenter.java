@@ -26,8 +26,6 @@ import java.util.List;
 public class UnInstrumenter implements Runnable {
     private Project project;
     private PsiElement psiElement;
-    private List<PsiClass> projectJavaClasses;
-
     private File sourceDirectory;
 
     public UnInstrumenter(Project project, PsiElement psiElement) {
@@ -80,12 +78,13 @@ public class UnInstrumenter implements Runnable {
         Utils.showMessage("Finished");
     }
 
-    private void removeLoggerSource(File sourceDirectory, String applicationClassQualifiedName) {
+    private boolean removeLoggerSource(File sourceDirectory, String applicationClassQualifiedName) {
         File javaSourceDirectory = new File(sourceDirectory, "main" + File.separatorChar + "java");
         File loggerFileDirectory = new File(javaSourceDirectory, AnalysisUtils.LOGGER_PACKAGE.replace(Constants.DOT_CHAR, File.separatorChar));
         File loggerFile = new File(loggerFileDirectory, AnalysisUtils.LOGGER_CLASS);
-        loggerFile.delete();
-        loggerFileDirectory.delete();
+        boolean deleted = loggerFile.delete();
+        deleted = deleted && loggerFileDirectory.delete();
+        return deleted;
     }
 
     public Project getProject() {
