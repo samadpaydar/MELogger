@@ -14,4 +14,6 @@ public class Constants {
     public final static char GREATER_THAN_CHAR = '>';
     public final static char COMMA_CHAR = ',';
     public final static char BLANK_SPACE_CHAR = ' ';
+    public final static char LEFT_PARENTHESIS_CHAR = '(';
+    public final static char RIGHT_PARENTHESIS_CHAR = ')';
 }

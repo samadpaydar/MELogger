@@ -56,9 +56,9 @@ public class AnalysisUtils {
             String methodSemiQualifiedName = getMethodSemiQualifiedName(method);
             String className = method.getContainingClass().getQualifiedName();
             if (className == null) {
-                return "AnonymousClass(" + methodSemiQualifiedName;
+                return "AnonymousClass_" + methodSemiQualifiedName;
             }
-            result = className + Constants.COMMA_CHAR + methodSemiQualifiedName;
+            result = className + Constants.DOT_CHAR + methodSemiQualifiedName;
         } catch (Exception e) {
             Utils.showException(e);
             e.printStackTrace();
@@ -83,18 +83,25 @@ public class AnalysisUtils {
     private static String getMethodSemiQualifiedName(PsiMethod method) {
         StringBuilder methodNameBuilder = new StringBuilder();
         methodNameBuilder.append(method.getName());
+        methodNameBuilder.append(Constants.LEFT_PARENTHESIS_CHAR);
         try {
             if (method.getParameters().length > 0) {
-                for (PsiParameter parameter : method.getParameterList().getParameters()) {
-                    String parameterType = parameter.getTypeElement().getType().getCanonicalText();
+                PsiParameter parameter = method.getParameterList().getParameters()[0];
+                String parameterType = parameter.getTypeElement().getType().getCanonicalText();
+                parameterType = parameterType.substring(parameterType.lastIndexOf('.') + 1);
+                methodNameBuilder.append(parameterType);
+                for (int i = 1; i < method.getParameters().length; i++) {
+                    parameter = method.getParameterList().getParameters()[i];
+                    parameterType = parameter.getTypeElement().getType().getCanonicalText();
                     parameterType = parameterType.substring(parameterType.lastIndexOf('.') + 1);
-                    methodNameBuilder.append(Constants.UNDERLINE_CHAR).append(parameterType);
+                    methodNameBuilder.append(Constants.COMMA_CHAR).append(parameterType);
                 }
             }
         } catch (Exception e) {
             Utils.showException(e);
             e.printStackTrace();
         }
+        methodNameBuilder.append(Constants.RIGHT_PARENTHESIS_CHAR);
         return methodNameBuilder.toString();
     }
 
